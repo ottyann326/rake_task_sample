@@ -15,7 +15,8 @@ namespace :import_csv do
         address: row["address"]
       }
     end
-    puts "インポート処理を開始します"
+    # 文字を青色で出力する
+    puts "インポート処理を開始します".blue
     # インポートができなかった場合の例外処理
     begin
       User.transaction do
@@ -23,11 +24,13 @@ namespace :import_csv do
         User.create!(list)
       end
       # 正常に動作した場合の処理
-      puts "インポートが完了しました"
+      # 文字を緑色で出力する
+      puts "インポートが完了しました".green
       # 例外処理
     rescue Activmodel::UnknownAttributeError => invalid
       # インポートができなかった場合の例外処理
-      puts "インポートに失敗しました:UnknownAttributeError"
+      # 文字を赤色で出力する
+      puts "インポートに失敗しました:UnknownAttributeError".red
     end
   end
 end
