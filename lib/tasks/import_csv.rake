@@ -18,9 +18,15 @@ namespace :import_csv do
     puts "インポート処理を開始します"
     # インポートができなかった場合の例外処理
     begin
-      User.create!(list)
+      User.transaction do
+        # 例外が発生する可能性のある処理
+        User.create!(list)
+      end
+      # 正常に動作した場合の処理
       puts "インポートが完了しました"
+      # 例外処理
     rescue Activmodel::UnknownAttributeError => invalid
+      # インポートができなかった場合の例外処理
       puts "インポートに失敗しました:UnknownAttributeError"
     end
   end
